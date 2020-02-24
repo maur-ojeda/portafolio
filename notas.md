@@ -1,4 +1,8 @@
-angular  generar componete
+# Angular 
+
+## Componetes
+
+### Generación de componentes 
 
 ```
 ng g c shared/header
@@ -10,9 +14,11 @@ y modifica el archivo app.module.ts que es en donde se registran los componenete
 
 
 
-## Navegacion
+## Navegación
 
 se controla desde  app/App-routing.module.ts
+
+###### TODO: revisar la creacion de route con NG CLI
 
 ```
 const routes: Routes = [
@@ -39,11 +45,9 @@ para cualquier otra ruta  sera redirida al "Home"
 
 ```
 
-App routing 
+### App routing 
 
-controla las rutas
-
- y en app.component.html se icorpora
+controla las rutas  y en app.component.html se icorpora
 
 ```
     <router-outlet></router-outlet>
@@ -157,5 +161,54 @@ para relizar un get de un archivo local:
     })
  	}
  }
+```
+
+### Interface
+
+###### TODO: revisar la creacion de interfaces con NG CLI
+
+se crea una carpeta para las interfaces ``src/app/interfaces`` y el archivo ``info-pagina.service.ts``
+
+```js
+export interface InfoPagina {
+//  titulo?: string;  '?' convierte al valor como opcional, si no tiene '?' es obligatorio
+  	titulo: string;
+    email: string;
+    nombre_corto: string;
+    pagina_autor: string;
+    facebook: string;
+    twitter: string;
+    instagran: string;
+    tublr: string;
+    equipo_trabajo: any[]; 
+}
+```
+
+``src/app/services/info-pagina.service.ts``
+
+```js
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { InfoPagina } from '../interfaces/info-pages.interface';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class InfoPaginaService {
+  //se incorpora la interface
+  info: InfoPagina = {};
+  //indicador si la data fue cargada
+  cargada = false;
+
+  constructor( private http: HttpClient ) { 
+    this.http.get('assets/data/data-pagina.json')
+    //la respuesta es de tipo infoPagina
+    .subscribe( (resp:infoPagina) => {
+      this.cargada = true;
+      this.info = resp
+    })
+  }
+}
+
 ```
 
