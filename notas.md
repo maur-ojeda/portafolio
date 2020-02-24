@@ -2,17 +2,30 @@
 
 ## Componetes
 
-### Generación de componentes 
+### Generación de componentes
 
 ```
-ng g c shared/header
+ng g c shared/nameOfComponent
 ```
 
-crea css, html, ts (--spec=false / sin archivo de prueba)
+crea css, html, ts 
 
 y modifica el archivo app.module.ts que es en donde se registran los componenetes
 
+```
+<!--The content below is only a placeholder and can be replaced.-->
+<app-nameOfComponent></app-nameOfComponent>
+```
 
+
+
+## Pages
+
+### Generación de pages
+
+```
+ng g c pages/nameOfPage
+```
 
 ## Navegación
 
@@ -213,4 +226,30 @@ export class InfoPaginaService {
 ```
 
 ### Utilizando los datos de interface en las páginas
+
+ se debe importar el servicio a la sección o componenete y luego pasarlo al contructor el cual lo disponibiliza para el html para se usado  en este caso ``{{infoPaginaServicio.info.titulo}``
+
+componente.ts
+
+```
+import ...
+import { InfoPaginaService } from 'src/app/services/info-pagina.service';
+
+
+@Component({
+  ...
+  })
+export class HeaderComponent implements OnInit {
+
+  constructor( public infoPaginaServicio: InfoPaginaService
+     ) {
+      }
+
+  ngOnInit(): void {
+  }
+}
+
+```
+
+ 
 
