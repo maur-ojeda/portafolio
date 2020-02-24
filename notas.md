@@ -212,3 +212,5 @@ export class InfoPaginaService {
 
 ```
 
+### Utilizando los datos de interface en las páginas
+

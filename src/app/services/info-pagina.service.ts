@@ -16,7 +16,9 @@ export class InfoPaginaService {
     this.http.get('assets/data/data-pagina.json')
     .subscribe( (resp:InfoPagina) => {
       this.cargada = true;
-      this.info = resp
+      this.info = resp;
+      console.log(this.info);
+      console.log(resp);
     })
   }
 }

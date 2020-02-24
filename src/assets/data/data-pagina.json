@@ -1,11 +1,12 @@
 {
-    "titulo": "mauricio's",
-    "email": "",
-    "nombre_corto":"",
-    "pagina_autor": "",
+    "titulo": "test",
+    "email": "test@test.com",
+    "nombre_corto":"test corto",
+    "pagina_autor": "sin pagina",
     "facebook":"" ,
     "twitter":"",
     "instagran":"",
-    "tublr":"",
+    "pinterest":"",
+    "tumblr":"",
     "equipo_trabajo":[]
 }
