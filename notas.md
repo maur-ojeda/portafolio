@@ -338,9 +338,56 @@ en html itera con la direciva ng todos los registros en  infoservice
 
 ```
 
-Servicio de productos
+## Parametros por url
+
+en app-routing.module.ts en el path del item se agrega un parametro.
 
 ```
+import {...};
+
+const routes: Routes = [
+	...,
+	{ path: 'item/:id', component: ItemComponent},
+ 	...
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+```
+
+para poder enviar parametros por url es necesario escribirlo de esta manera
+
+```
+ [routerLink]="['/item',{{producto.cod}}]
+```
+
+para que la pagina del item pueda recibir el parametro, se incluye  “ActivatedRoute"
+
+```js
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+@Component({
+  selector: 'app-item',
+  templateUrl: './item.component.html',
+  styleUrls: ['./item.component.css']
+})
+export class ItemComponent implements OnInit {
+
+  constructor( private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    this.route.params.suscribe(
+    parametros => {
+      console.log(parametros);
+    });
+  }
+
+}
 
 ```
 

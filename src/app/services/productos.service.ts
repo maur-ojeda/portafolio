@@ -26,4 +26,15 @@ export class ProductosService {
     )
   } 
 
+  getProducto(id: string){
+
+    console.log(id);
+    //template literales
+    return this.http.get(`https://angular-html-d70f1.firebaseio.com/productos/${id}.json`);
+      
+
+
+
+  }
+
 }
