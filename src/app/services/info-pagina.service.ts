@@ -10,8 +10,7 @@ export class InfoPaginaService {
   //contenedor para el objeto
   info: InfoPagina = {};
   //indicador si la data fue cargada
-  cargada = false;
-  
+  cargando = true;
   equipo : any[] = [];
 
   constructor( private http: HttpClient ) { 
@@ -24,13 +23,13 @@ export class InfoPaginaService {
     //console.log('servicio info cargado');
     this.http.get('assets/data/data-pagina.json')
     .subscribe( (resp:InfoPagina) => {
-      this.cargada = true;
+      this.cargando = false;
       this.info = resp;
     })
   }
     private cargarEquipo(){
     this.http.get('https://angular-html-d70f1.firebaseio.com/equipo.json')
-    .subscribe( (resp:any) => {
+    .subscribe( (resp:any[]) => {
       this.equipo = resp;
   })
 }

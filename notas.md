@@ -1,4 +1,12 @@
-# Angular 
+# Angular
+
+levantar servidor de prueba
+
+```
+ng serve
+```
+
+
 
 ## Componetes
 
@@ -252,4 +260,87 @@ export class HeaderComponent implements OnInit {
 ```
 
  
+
+### Utilizando datos de firebase
+
+```
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { InfoPagina } from '../interfaces/info-pages.interface';
+
+@Injectable({
+  providedIn: 'root'
+})
+
+export class InfoPaginaService {
+  //contenedor para el objeto
+  info: InfoPagina = {};
+  //indicador si la data fue cargada
+  cargada = false;
+  
+  equipo : any[] = [];
+
+  constructor( private http: HttpClient ) { 
+      this.cargarInfo();
+      this.cargarEquipo();
+  }
+
+
+  private cargarInfo(){
+    //console.log('servicio info cargado');
+    this.http.get('assets/data/data-pagina.json')
+    .subscribe( (resp:InfoPagina) => {
+      this.cargada = true;
+      this.info = resp;
+    })
+  }
+    private cargarEquipo(){
+    this.http.get('https://angular-html-d70f1.firebaseio.com/equipo.json')
+    .subscribe( (resp:any[]) => {
+      this.equipo = resp;
+  })
+}
+}
+```
+
+y luego en la pagina que consumira el servicio, se importa y se pasa como parametro del constructor
+
+```
+import { Component, OnInit } from '@angular/core';
+import { InfoPaginaService } from 'src/app/services/info-pagina.service';
+
+
+@Component({
+  selector: 'app-about',
+  templateUrl: './about.component.html',
+  styleUrls: ['./about.component.css']
+})
+export class AboutComponent implements OnInit {
+
+  constructor(public infoService: InfoPaginaService) { }
+
+  ngOnInit(): void {
+  }
+}
+
+```
+
+en html itera con la direciva ng todos los registros en  infoservice
+
+```
+      <div *ngFor="let persona of infoService.equipo" class="ae-grid__item item-lg-4 ae-kappa au-mb-3 animated fadeIn">
+        <img src="{{persona.url}}" alt="" class="au-mb-3">
+        <h5 class="ae-u-bolder au-mt-2">{{persona.nombre}}</h5>
+        <p class="ae-u-bolder au-mb-3">{{persona.subtitle}}</p>
+        <p class="au-lg-ta-left au-mb-3 au-pl-4 au-pr-4">{{persona.frase}}</p><a target="_blank" href="{{persona.twitter}}" class="ae-u-bolder au-underline">{{persona.twitter}}</a>
+      </div>
+
+
+```
+
+Servicio de productos
+
+```
+
+```
 
