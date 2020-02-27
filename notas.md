@@ -426,7 +426,7 @@ const routes: Routes = [
 
 
 
-en header.componenet.ts se importa router  y en el constructor de mla funcion se  incluye
+en header.componenet.ts se importa router  y en el constructor funcion se  incluye
 
 ```js
 ...
@@ -454,8 +454,23 @@ export class HeaderComponent implements OnInit {
 } 
 ```
 
-admin-hrm-menu
 
 
+## Probando pre prod
 
+para crear la version de producción se usa el siguiente comando y generará  una carpeta dist
+
+se debe probar bajo el protocolo http
+
+```
+ng build --prod
+```
+
+se carga el proyecto en local. / levanta un servidor node
+
+```
+http-server -o
+```
+
+## Subiendo archivos a github
 
