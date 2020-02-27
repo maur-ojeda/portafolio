@@ -31,7 +31,7 @@ y modifica el archivo app.module.ts que es en donde se registran los componenete
 
 ### Generación de pages
 
-```
+```terminal
 ng g c pages/nameOfPage
 ```
 
@@ -41,14 +41,13 @@ se controla desde  app/App-routing.module.ts
 
 ###### TODO: revisar la creacion de route con NG CLI
 
-```
+```javascript
 const routes: Routes = [
   { path: '', component: PortafolioComponent },
   { path: 'about', component: AboutComponent },
   { path: 'item', component: ItemComponent},
   { path: '**', pathMatch: 'full',  redirectTo: ''}
 ];
-
 
 @NgModule({
 //para servidores en donde no se tiene accso al htaccess se usa {useHash: true} para decirle al servidor que la ruta no son directorios
@@ -57,8 +56,6 @@ imports: [RouterModule.forRoot(routes, {useHash: true})],
 })
 export class AppRoutingModule { }
 
-
-
 // se registran las rutas en path y al componenete que corresponden
 para cualquier otra ruta  sera redirida al "Home"
   { path: '**', pathMatch: 'full',  redirectTo: ''}
@@ -66,7 +63,7 @@ para cualquier otra ruta  sera redirida al "Home"
 
 ```
 
-### App routing 
+### App routing
 
 controla las rutas  y en app.component.html se icorpora
 
@@ -338,6 +335,8 @@ en html itera con la direciva ng todos los registros en  infoservice
 
 ```
 
+
+
 ## Parametros por url
 
 en app-routing.module.ts en el path del item se agrega un parametro.
@@ -386,8 +385,77 @@ export class ItemComponent implements OnInit {
       console.log(parametros);
     });
   }
-
 }
+```
+
+
+
+## Búsqueda 
+
+en header.componenet.html se cambia el form de busqueda por un div para no importar  y para captura el campo  
+
+```html
+<input type="text" #txtBuscar
+          (keyup.enter) ="buscarProducto( txtBuscar.value)"
+          placeholder="Buscar"
+          id="urku-search"
+          class="rk-search-field"
+>
 
 ```
+
+Luego en header.componenet.ts, en la clase HeaderComponenet  se crea una nueva función
+
+```js
+  buscarProducto ( termino: string ){
+    console.log(termino);
+  }
+```
+
+Luego se genera el componente pagina search ``n g g c pages/search`` y se modifican las rutas
+
+```javascript
+import { SearchComponent } from './pages/search/search.component';
+
+const routes: Routes = [
+ ...
+  { path: 'search/:termino', component: SearchComponent},
+ ...
+];
+```
+
+
+
+en header.componenet.ts se importa router  y en el constructor de mla funcion se  incluye
+
+```js
+...
+import { Router } from '@angular/router';
+
+
+@Component({
+..
+})
+export class HeaderComponent implements OnInit {
+
+  constructor( 
+...
+  private router: Router) { }
+
+  ngOnInit(): void {
+  }
+  
+  buscarProducto( termino: string ){
+    if( termino.length < 1 ){
+      return;
+    }
+    this.router.navigate(['/search', termino ]);
+  }
+} 
+```
+
+admin-hrm-menu
+
+
+
 
